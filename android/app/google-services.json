@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "509855341431",
+    "project_id": "journey-feda2",
+    "storage_bucket": "journey-feda2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:509855341431:android:7cf9e2f66d103f6ef9df72",
+        "android_client_info": {
+          "package_name": "com.example.journey"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCapL74RdeC63za16_lrMcBKYDQe7CDSJ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
