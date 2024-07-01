@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'profile_page.dart';
 import 'spot.dart';
+import 'detailsSpot.dart'; // Import the detailsSpot.dart file
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,14 +13,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
-  // List of image URLs for the slider
   final List<String> _imageUrls = [
     'https://images.pexels.com/photos/2105416/pexels-photo-2105416.jpeg',
     'https://images.pexels.com/photos/629162/pexels-photo-629162.jpeg',
     'https://images.pexels.com/photos/1424239/pexels-photo-1424239.jpeg',
   ];
 
-  // Function to fetch tourist spots from Firestore collection
   Widget _buildTouristSpotList() {
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance.collection('spot').snapshots(),
@@ -40,26 +39,37 @@ class _HomePageState extends State<HomePage> {
           scrollDirection: Axis.horizontal,
           children: snapshot.data!.docs.map((doc) {
             Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-            return Card(
-              child: Column(
-                children: [
-                  Image.network(
-                    data['ImageUrl'] ?? 'https://via.placeholder.com/150',
-                    width: 150,
-                    height: 100,
-                    fit: BoxFit.cover,
+            String spotId = doc.id;
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailsSpotPage(spotId: spotId),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Text(data['Tourist_spot_name']),
-                        Text(data['country_name']),
-                        Text(data['location']),
-                      ],
+                );
+              },
+              child: Card(
+                child: Column(
+                  children: [
+                    Image.network(
+                      data['ImageUrl'] ?? 'https://via.placeholder.com/150',
+                      width: 150,
+                      height: 100,
+                      fit: BoxFit.cover,
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Text(data['Tourist_spot_name']),
+                          Text(data['country_name']),
+                          Text(data['location']),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           }).toList(),
@@ -70,7 +80,6 @@ class _HomePageState extends State<HomePage> {
 
   void _onItemTapped(int index) {
     if (index == 0) {
-      // Navigate to HomePage
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -78,7 +87,6 @@ class _HomePageState extends State<HomePage> {
         ),
       );
     } else if (index == 1) {
-      // Navigate to ProfilePage
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -88,7 +96,6 @@ class _HomePageState extends State<HomePage> {
         ),
       );
     } else if (index == 2) {
-      // Navigate to SpotPage
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -149,7 +156,6 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(
         children: [
-          // Image slider
           Container(
             height: 200,
             child: PageView.builder(
@@ -163,7 +169,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           SizedBox(height: 10),
-          // Display tourist spots
           Expanded(
             child: _selectedIndex == 0
                 ? Padding(
