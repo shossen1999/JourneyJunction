@@ -51,7 +51,8 @@ class _HomePageState extends State<HomePage> {
               },
               child: Container(
                 margin: EdgeInsets.all(10),
-                width: 200,
+                width: 300, // Increased width
+                height: 120, // Decreased height
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(15),
@@ -64,50 +65,34 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ],
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Stack(
                   children: [
                     ClipRRect(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(15),
-                      ),
+                      borderRadius: BorderRadius.circular(15),
                       child: Image.network(
-                        data['ImageUrl'] ?? 'https://via.placeholder.com/200',
+                        data['ImageUrl'] ??
+                            'https://via.placeholder.com/300x120',
                         width: double.infinity,
-                        height: 120,
+                        height: double.infinity,
                         fit: BoxFit.cover,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            data['Tourist_spot_name'] ?? 'N/A',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black87,
-                            ),
+                    Positioned(
+                      bottom: 10,
+                      right: 10,
+                      child: Container(
+                        color: Colors.black
+                            .withOpacity(0.4), // Semi-transparent background
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        child: Text(
+                          data['Tourist_spot_name'] ?? 'No name',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
                           ),
-                          SizedBox(height: 6),
-                          Text(
-                            'Country: ${data['country_name'] ?? 'N/A'}',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.blueGrey[600],
-                            ),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            'Location: ${data['location'] ?? 'N/A'}',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.blueGrey[600],
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ],
@@ -162,7 +147,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.blue,
               ),
               child: Text(
-                'Drawer Header',
+                'Journey Junction',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
