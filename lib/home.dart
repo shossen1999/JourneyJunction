@@ -58,8 +58,8 @@ class _HomePageState extends State<HomePage> {
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 5,
-                      blurRadius: 7,
+                      spreadRadius: 3,
+                      blurRadius: 6,
                       offset: Offset(0, 3),
                     ),
                   ],
@@ -79,31 +79,32 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(10.0),
+                      padding: const EdgeInsets.all(12.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             data['Tourist_spot_name'] ?? 'N/A',
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
+                              color: Colors.black87,
                             ),
                           ),
-                          SizedBox(height: 5),
+                          SizedBox(height: 6),
                           Text(
                             'Country: ${data['country_name'] ?? 'N/A'}',
                             style: TextStyle(
                               fontSize: 14,
-                              color: Colors.grey[600],
+                              color: Colors.blueGrey[600],
                             ),
                           ),
-                          SizedBox(height: 5),
+                          SizedBox(height: 4),
                           Text(
                             'Location: ${data['location'] ?? 'N/A'}',
                             style: TextStyle(
                               fontSize: 14,
-                              color: Colors.grey[600],
+                              color: Colors.blueGrey[600],
                             ),
                           ),
                         ],
