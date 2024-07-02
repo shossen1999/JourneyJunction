@@ -49,22 +49,63 @@ class _HomePageState extends State<HomePage> {
                   ),
                 );
               },
-              child: Card(
+              child: Container(
+                margin: EdgeInsets.all(10),
+                width: 200,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                ),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.network(
-                      data['ImageUrl'] ?? 'https://via.placeholder.com/150',
-                      width: 150,
-                      height: 100,
-                      fit: BoxFit.cover,
+                    ClipRRect(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(15),
+                      ),
+                      child: Image.network(
+                        data['ImageUrl'] ?? 'https://via.placeholder.com/200',
+                        width: double.infinity,
+                        height: 120,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(10.0),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(data['Tourist_spot_name']),
-                          Text(data['country_name']),
-                          Text(data['location']),
+                          Text(
+                            data['Tourist_spot_name'] ?? 'N/A',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 5),
+                          Text(
+                            'Country: ${data['country_name'] ?? 'N/A'}',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                          SizedBox(height: 5),
+                          Text(
+                            'Location: ${data['location'] ?? 'N/A'}',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey[600],
+                            ),
+                          ),
                         ],
                       ),
                     ),

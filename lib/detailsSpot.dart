@@ -11,12 +11,15 @@ class DetailsSpotPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Spot Details'),
+        backgroundColor: Colors.blueAccent,
       ),
       body: FutureBuilder<DocumentSnapshot>(
         future: FirebaseFirestore.instance.collection('spot').doc(spotId).get(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
+            return Center(
+                child: Text('Error: ${snapshot.error}',
+                    style: TextStyle(color: Colors.red)));
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -30,41 +33,84 @@ class DetailsSpotPage extends StatelessWidget {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
 
-          return Padding(
-            padding: const EdgeInsets.all(16.0),
+          return SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.network(
-                  data['ImageUrl'] ?? 'https://via.placeholder.com/600x400',
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                  height: 200,
+                Stack(
+                  children: [
+                    Image.network(
+                      data['ImageUrl'] ?? 'https://via.placeholder.com/600x400',
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: 250,
+                    ),
+                    Positioned(
+                      bottom: 10,
+                      left: 10,
+                      child: Container(
+                        color: Colors.black.withOpacity(0.5),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        child: Text(
+                          data['Tourist_spot_name'] ?? 'No name',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(height: 16),
-                Text(
-                  data['Tourist_spot_name'] ?? 'No name',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 8),
-                Text(
-                  'Country: ${data['country_name'] ?? 'Unknown'}',
-                  style: TextStyle(fontSize: 18),
-                ),
-                SizedBox(height: 8),
-                Text(
-                  'Location: ${data['location'] ?? 'Unknown'}',
-                  style: TextStyle(fontSize: 18),
-                ),
-                SizedBox(height: 16),
-                Text(
-                  'Description:',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 8),
-                Text(
-                  data['description'] ?? 'No description',
-                  style: TextStyle(fontSize: 16),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Icon(Icons.location_on, color: Colors.blueAccent),
+                          SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              'Country: ${data['country_name'] ?? 'Unknown'}',
+                              style: TextStyle(
+                                  fontSize: 18, color: Colors.blueAccent),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 8),
+                      Row(
+                        children: [
+                          Icon(Icons.map, color: Colors.blueAccent),
+                          SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              'Location: ${data['location'] ?? 'Unknown'}',
+                              style: TextStyle(
+                                  fontSize: 18, color: Colors.blueAccent),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 16),
+                      Text(
+                        'Description:',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        data['description'] ?? 'No description available.',
+                        style: TextStyle(fontSize: 16),
+                        textAlign: TextAlign.justify,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
