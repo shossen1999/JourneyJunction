@@ -51,10 +51,10 @@ class _HomePageState extends State<HomePage> {
               },
               child: Container(
                 margin: EdgeInsets.all(10),
-                width: 300, // Increased width
-                height: 120, // Decreased height
+                width: 320, // Increased width
+                height: 150, // Decreased height
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Colors.transparent, // Transparent background for card
                   borderRadius: BorderRadius.circular(15),
                   boxShadow: [
                     BoxShadow(
@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(15),
                       child: Image.network(
                         data['ImageUrl'] ??
-                            'https://via.placeholder.com/300x120',
+                            'https://via.placeholder.com/320x150',
                         width: double.infinity,
                         height: double.infinity,
                         fit: BoxFit.cover,
@@ -81,8 +81,8 @@ class _HomePageState extends State<HomePage> {
                       bottom: 10,
                       right: 10,
                       child: Container(
-                        color: Colors.black
-                            .withOpacity(0.4), // Semi-transparent background
+                        color: Colors.black.withOpacity(
+                            0.5), // Semi-transparent black background
                         padding:
                             EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         child: Text(
